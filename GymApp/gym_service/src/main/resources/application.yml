@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+membership-service:
+  url: http://localhost:8082
+
+spring:
+  application:
+    name: gym-service
+
+  datasource:
+    url: jdbc:h2:mem:category-db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
