@@ -1,8 +1,8 @@
-package org.gymapp.membershipservice;
+package org.gymapp.memberservice;
 
-import org.gymapp.membershipservice.entity.Category;
-import org.gymapp.membershipservice.repository.CategoryRepository;
-import org.gymapp.membershipservice.service.CategoryService;
+import org.gymapp.memberservice.entity.Category;
+import org.gymapp.memberservice.repository.CategoryRepository;
+import org.gymapp.memberservice.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,8 +26,8 @@ public class CategoryServiceTest {
     @Test
     void testSavedCategory(){
         //arrange
-        Category category = new Category("street");
-        Category savedCategory = new Category("street");
+        Category category = new Category("Membership1");
+        Category savedCategory = new Category("Membership1");
 
         when(categoryRepository.save(category)).thenReturn(savedCategory);
 
@@ -44,7 +44,7 @@ public class CategoryServiceTest {
     @Test
     void testReturnAllCategories(){
         //arrange
-        List<Category> categories= List.of(new Category("street"), new Category("street"));
+        List<Category> categories= List.of(new Category("Membership1"), new Category("Membership1"));
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
@@ -61,7 +61,7 @@ public class CategoryServiceTest {
     @Test
     void testDeleteCategory(){
         //arrange
-        Category categories = new Category("street");
+        Category categories = new Category("Membership1");
 
         //act
         categoryService.delete(categories);

@@ -41,7 +41,7 @@ public class Membership {
 
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category", nullable = false)
     private Category category;
 
     @Builder

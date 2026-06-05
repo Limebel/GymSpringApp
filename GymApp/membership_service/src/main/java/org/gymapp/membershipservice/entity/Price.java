@@ -18,7 +18,7 @@ public class Price {
     @NotNull
     @Positive
     @Digits(integer = 8, fraction = 2)
-    @Column(name="price value", precision=10, scale=2, nullable = false)
+    @Column(name="price_value", precision=10, scale=2, nullable = false)
     private BigDecimal value;
 
     @NotBlank
