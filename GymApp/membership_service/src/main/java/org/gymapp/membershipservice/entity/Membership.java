@@ -7,14 +7,16 @@ import lombok.*;
 
 import java.util.UUID;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "membership")
 @Getter @Setter
-@EqualsAndHashCode(of = {"name", "type"})
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Membership {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank
@@ -30,15 +32,26 @@ public class Membership {
     private Price monthlyPrice;
 
     @NotNull
-    @Column(name = "duration months", nullable = false)
+    @Column(name = "duration_months", nullable = false)
     private Integer duration;
 
     @NotNull
-    @Column(name = "max members", nullable = false)
+    @Column(name = "max_members", nullable = false)
     private Integer maxMembers;
 
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    private CategoryRef category;
+    private Category category;
+
+    @Builder
+    public Membership(String name, MembershipType type, Price price, Integer duration,
+                      Integer maxMembers, Category category){
+        this.name = name;
+        this.type = type;
+        this.monthlyPrice = price;
+        this.duration = duration;
+        this.maxMembers = maxMembers;
+        this.category = category;
+    }
 }

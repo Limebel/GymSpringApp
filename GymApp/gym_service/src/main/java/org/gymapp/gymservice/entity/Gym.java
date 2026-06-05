@@ -1,27 +1,21 @@
 package org.gymapp.gymservice.entity;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "gym")
 @Getter @Setter
-@EqualsAndHashCode(of = "address")
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Gym {
-    @PrePersist
-    public void prePersist(){
-        if (id == null){
-            id = UUID.randomUUID();
-        }
-    }
-
     @Id
     @Column(name = "id", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank
@@ -29,6 +23,12 @@ public class Gym {
     private String address;
 
     @NotBlank
-    @Column(name = "phone number", nullable = false, unique = true)
-    private String phone_number;
+    @Column(name = "phone_number", nullable = false, unique = true)
+    private String phoneNumber;
+
+    @Builder
+    public Gym(String address, String phoneNumber){
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 }

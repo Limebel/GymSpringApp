@@ -1,6 +1,9 @@
 package org.gymapp.membershipservice;
 
+import org.gymapp.membershipservice.entity.Category;
 import org.gymapp.membershipservice.entity.Membership;
+import org.gymapp.membershipservice.entity.MembershipType;
+import org.gymapp.membershipservice.entity.Price;
 import org.gymapp.membershipservice.repository.MembershipRepository;
 import org.gymapp.membershipservice.service.MembershipService;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,8 +30,24 @@ public class MembershipServiceTest {
     @Test
     void testSavedMembership(){
         //arrange
-        Membership membership = new Membership();
-        Membership savedMembership = new Membership();
+        Price price = new Price(new BigDecimal("400"), "PLN");
+        Category category = new Category("street");
+        Membership membership = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
+        Membership savedMembership = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
 
         when(membershipRepository.save(membership)).thenReturn(savedMembership);
 
@@ -44,7 +64,25 @@ public class MembershipServiceTest {
     @Test
     void testReturnAllMemberships(){
         //arrange
-        List<Membership> memberships= List.of(new Membership(), new Membership());
+        Price price = new Price(new BigDecimal("400"), "PLN");
+        Category category = new Category("street");
+        Membership membership1 = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
+        Membership membership2 = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
+        List<Membership> memberships= List.of(membership1, membership2);
 
         when(membershipRepository.findAll()).thenReturn(memberships);
 
@@ -61,7 +99,16 @@ public class MembershipServiceTest {
     @Test
     void testDeleteMembership(){
         //arrange
-        Membership membership = new Membership();
+        Price price = new Price(new BigDecimal("400"), "PLN");
+        Category category = new Category("street");
+        Membership membership = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
 
         //act
         membershipService.delete(membership);

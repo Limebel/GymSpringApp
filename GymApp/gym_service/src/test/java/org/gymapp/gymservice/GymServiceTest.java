@@ -24,9 +24,15 @@ public class GymServiceTest{
 
     @Test
     void testSavedGym(){
-        //arragne
-        Gym gym = new Gym();
-        Gym savedGym = new Gym();
+        //arrange
+        Gym gym = Gym.builder()
+                .address("street")
+                .phoneNumber("000-000-000")
+                .build();
+        Gym savedGym = Gym.builder()
+                .address("street")
+                .phoneNumber("000-000-000")
+                .build();
 
         when(gymRepository.save(gym)).thenReturn(savedGym);
 
@@ -43,7 +49,15 @@ public class GymServiceTest{
     @Test
     void testReturnAllGyms(){
         //arrange
-        List<Gym> gyms= List.of(new Gym(), new Gym());
+        List<Gym> gyms= List.of(
+                Gym.builder()
+                        .address("street")
+                        .phoneNumber("000-000-000")
+                        .build(),
+                Gym.builder()
+                        .address("street")
+                        .phoneNumber("000-000-000")
+                        .build());
 
         when(gymRepository.findAll()).thenReturn(gyms);
 
@@ -60,7 +74,10 @@ public class GymServiceTest{
     @Test
     void testDeleteGym(){
         //arrange
-        Gym gym = new Gym();
+        Gym gym = Gym.builder()
+                .address("street")
+                .phoneNumber("000-000-000")
+                .build();
 
         //act
         gymService.delete(gym);

@@ -6,9 +6,13 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Price {
     @NotNull
@@ -20,4 +24,10 @@ public class Price {
     @NotBlank
     @Column(name="currency", nullable = false)
     private String currency;
+
+    @Builder
+    public Price(BigDecimal value, String currency){
+        this.value = value;
+        this.currency = currency;
+    }
 }

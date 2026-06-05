@@ -1,8 +1,8 @@
 package org.gymapp.membershipservice;
 
-import org.gymapp.membershipservice.entity.CategoryRef;
-import org.gymapp.membershipservice.repository.CategoryRefRepository;
-import org.gymapp.membershipservice.service.CategoryRefService;
+import org.gymapp.membershipservice.entity.Category;
+import org.gymapp.membershipservice.repository.CategoryRepository;
+import org.gymapp.membershipservice.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,25 +18,25 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceTest {
     @Mock
-    private CategoryRefRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @InjectMocks
-    private CategoryRefService categoryService;
+    private CategoryService categoryService;
 
     @Test
     void testSavedCategoryRef(){
         //arrange
-        CategoryRef category = new CategoryRef();
-        CategoryRef savedCategoryRef = new CategoryRef();
+        Category category = new Category("street");
+        Category savedCategory = new Category("street");
 
-        when(categoryRepository.save(category)).thenReturn(savedCategoryRef);
+        when(categoryRepository.save(category)).thenReturn(savedCategory);
 
         //act
-        CategoryRef result = categoryService.save(category);
+        Category result = categoryService.save(category);
 
         //assert
         //check if save was done
-        assertEquals(savedCategoryRef, result);
+        assertEquals(savedCategory, result);
         //check if save was done once
         verify(categoryRepository, times(1)).save(category);
     }
@@ -44,12 +44,12 @@ public class CategoryServiceTest {
     @Test
     void testReturnAllCategoryRefs(){
         //arrange
-        List<CategoryRef> categories= List.of(new CategoryRef(), new CategoryRef());
+        List<Category> categories= List.of(new Category("street"), new Category("street"));
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
         //act
-        List<CategoryRef> results = categoryService.findAll();
+        List<Category> results = categoryService.findAll();
 
         //assert
         //check if returned list contain 2 elements
@@ -61,7 +61,7 @@ public class CategoryServiceTest {
     @Test
     void testDeleteCategoryRef(){
         //arrange
-        CategoryRef categories = new CategoryRef();
+        Category categories = new Category("street");
 
         //act
         categoryService.delete(categories);
