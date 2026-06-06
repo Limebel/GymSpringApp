@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: membership-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/memberships-management/**
+
+        - id: gym-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/gyms-management/**

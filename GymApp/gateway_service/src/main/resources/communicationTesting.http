@@ -1,0 +1,77 @@
+### GYMS REQUESTS
+
+### Create a new Gym
+POST http://localhost:8080/api/gyms-management/gyms
+Content-Type: application/json
+
+{
+  "address": "street1",
+  "phoneNumber": "000-000-001"
+}
+
+###
+### Create another Gym
+POST http://localhost:8080/api/gyms-management/gyms
+Content-Type: application/json
+
+{
+  "address": "street2",
+  "phoneNumber": "000-000-002"
+}
+
+###
+GET http://localhost:8080/api/gyms-management/gyms
+
+
+### MEMBERSHIPS REQUESTS
+
+### Create Membership in existing Gym
+POST http://localhost:8082/api/memberships-management/gyms/34f12efd-76a6-4aa0-890d-bb0d646b4edb/memberships
+Content-Type: application/json
+
+{
+  "name": "Membership1",
+  "type": "BASIC",
+  "monthlyPrice": {
+    "value": 100.99,
+    "currency": "PLN"
+  },
+  "duration": 6,
+  "maxMembers": 10
+}
+
+###
+### Create another Membership in the same Gym
+POST http://localhost:8082/api/memberships-management/gyms/34f12efd-76a6-4aa0-890d-bb0d646b4edb/memberships
+Content-Type: application/json
+
+{
+  "name": "Membership2",
+  "type": "PREMIUM",
+  "monthlyPrice": {
+    "value": 10000.99,
+    "currency": "EUR"
+  },
+  "duration": 12,
+  "maxMembers": 3
+}
+
+###
+### Try to add Person to non-existing House
+POST http://localhost:8082/api/memberships-management/gyms/00000000-0000-0000-0000-000000000000/memberships
+Content-Type: application/json
+
+{
+  "name": "Ghost",
+  "type": "PREMIUM",
+  "monthlyPrice": {
+    "value": 1.00,
+    "currency": "EUR"
+  },
+  "duration": 0,
+  "maxMembers": 0
+}
+
+###
+### Get all People
+GET http://localhost:8082/api/memberships-management/memberships

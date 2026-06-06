@@ -4,5 +4,6 @@ import java.util.UUID;
 
 public record GymReadDto(
         UUID id,
-        String address
+        String address,
+        String phoneNumber
 ) {}

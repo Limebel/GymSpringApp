@@ -11,7 +11,8 @@ public class GymMapper {
     public GymReadDto toReadDto (Gym gym){
         return new GymReadDto(
                 gym.getId(),
-                gym.getAddress()
+                gym.getAddress(),
+                gym.getPhoneNumber()
         );
     }
 

@@ -23,7 +23,7 @@ class CategoryEventPublisher {
         );
 
         restTemplate.postForEntity(
-                elementServiceUrl + "/events/categories",
+                elementServiceUrl + "/events/gyms",
                 dto,
                 Void.class
         );

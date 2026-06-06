@@ -12,18 +12,13 @@ import java.util.UUID;
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
 @ToString
+@AllArgsConstructor
 public class Category {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotNull
     @Column(name = "address", nullable = false, unique = true)
     private String address;
-
-    @Builder
-    public Category(String address){
-        this.address = address;
-    }
 }

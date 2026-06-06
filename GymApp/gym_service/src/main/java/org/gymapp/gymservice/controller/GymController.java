@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/gyms")
+@RequestMapping("/api/gyms-management/gyms")
 class GymController {
     private final GymService gymService;
     private final GymMapper gymMapper;

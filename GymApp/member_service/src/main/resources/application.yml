@@ -1,18 +1,15 @@
 server:
-  port: 8082
+  port: 8083
 
-gym-service:
-  url: http://localhost:8081
-
-member-service:
-  url: http://localhost:8083
+membership-service:
+  url: http://localhost:8082
 
 spring:
   application:
-    name: membership-service
+    name: member-service
 
   datasource:
-    url: jdbc:h2:mem:membership-db
+    url: jdbc:h2:mem:member-db
     driver-class-name: org.h2.Driver
     username: sa
     password:

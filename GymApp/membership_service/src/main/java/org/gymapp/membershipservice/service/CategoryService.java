@@ -6,6 +6,8 @@ import org.gymapp.membershipservice.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +17,8 @@ public class CategoryService {
     public Category save(Category category){ return categoryRepository.save(category); }
 
     public List<Category> findAll() {return categoryRepository.findAll(); }
+
+    public Optional<Category> findById(UUID id) {return categoryRepository.findById(id);} //TODO: test
 
     public void delete(Category category) { categoryRepository.delete(category); }
 }
