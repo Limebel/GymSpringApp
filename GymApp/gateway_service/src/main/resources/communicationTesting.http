@@ -26,7 +26,7 @@ GET http://localhost:8080/api/gyms-management/gyms
 ### MEMBERSHIPS REQUESTS
 
 ### Create Membership in existing Gym
-POST http://localhost:8082/api/memberships-management/gyms/34f12efd-76a6-4aa0-890d-bb0d646b4edb/memberships
+POST http://localhost:8080/api/memberships-management/gyms/f64a1996-3877-4130-a994-82d583a80dc8/memberships
 Content-Type: application/json
 
 {
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 ###
 ### Create another Membership in the same Gym
-POST http://localhost:8082/api/memberships-management/gyms/34f12efd-76a6-4aa0-890d-bb0d646b4edb/memberships
+POST http://localhost:8080/api/memberships-management/gyms/f64a1996-3877-4130-a994-82d583a80dc8/memberships
 Content-Type: application/json
 
 {
@@ -58,7 +58,7 @@ Content-Type: application/json
 
 ###
 ### Try to add Person to non-existing House
-POST http://localhost:8082/api/memberships-management/gyms/00000000-0000-0000-0000-000000000000/memberships
+POST http://localhost:8080/api/memberships-management/gyms/00000000-0000-0000-0000-000000000000/memberships
 Content-Type: application/json
 
 {
@@ -74,4 +74,46 @@ Content-Type: application/json
 
 ###
 ### Get all People
-GET http://localhost:8082/api/memberships-management/memberships
+GET http://localhost:8080/api/memberships-management/memberships
+
+### MEMBERS REQUESTS
+
+### Create Membership in existing Gym
+POST http://localhost:8080/api/members-management/memberships/05ffa828-8485-460d-a0d6-58cfc7ca130a/members
+Content-Type: application/json
+
+{
+  "fullName": "Jack Black",
+  "email": "jackblack@gmail.com",
+  "startDate": "2000-01-01"
+}
+
+###
+### Create another Membership in the same Gym
+POST http://localhost:8080/api/members-management/memberships/05ffa828-8485-460d-a0d6-58cfc7ca130a/members
+Content-Type: application/json
+
+{
+  "fullName": "John White",
+  "email": "johnwhite@gmail.com",
+  "startDate": "2000-01-02"
+}
+
+###
+### Try to add Person to non-existing House
+POST http://localhost:8080/api/members-management/memberships/00000000-0000-0000-0000-000000000000/members
+Content-Type: application/json
+
+{
+  "fullName": "Ghost",
+  "email": "ghost@gmail.com",
+  "startDate": "2000-01-03"
+}
+
+###
+### Get all People
+GET http://localhost:8080/api/members-management/members
+
+###
+### Deleting first person
+DELETE http://localhost:8080/api/members-management/members/c2758e1a-6578-4c7c-8923-0fdd59bf2782

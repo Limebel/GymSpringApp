@@ -15,15 +15,25 @@ import java.util.UUID;
 public class Category {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @NotNull
+    @Column(name = "members_signed", nullable = false)
+    private Integer membersSigned;
+
+    @NotNull
+    @Column(name = "max_members", nullable = false)
+    private Integer maxMembers;
+
     @Builder
-    public Category(String name){
+    public Category(UUID id, String name, Integer maxMembers){
+        this.id = id;
         this.name = name;
+        this.membersSigned = 0;
+        this.maxMembers = maxMembers;
     }
 }

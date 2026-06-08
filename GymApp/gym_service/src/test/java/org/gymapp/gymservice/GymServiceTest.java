@@ -47,7 +47,7 @@ public class GymServiceTest{
     }
 
     @Test
-    void testReturnAllGyms(){
+    void testFindAllGyms(){
         //arrange
         List<Gym> gyms= List.of(
                 Gym.builder()

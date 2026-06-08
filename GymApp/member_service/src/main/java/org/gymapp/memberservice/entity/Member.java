@@ -18,6 +18,7 @@ import java.util.UUID;
 public class Member {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank

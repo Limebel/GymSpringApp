@@ -14,3 +14,8 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/api/gyms-management/**
+
+        - id: member-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/members-management/**

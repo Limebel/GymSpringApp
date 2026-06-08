@@ -14,8 +14,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -31,7 +34,7 @@ public class MembershipServiceTest {
     void testSavedMembership(){
         //arrange
         Price price = new Price(new BigDecimal("400"), "PLN");
-        Category category = new Category("street");
+        Category category = new Category(UUID.randomUUID(), "street");
         Membership membership = Membership.builder()
                 .name("name")
                 .type(MembershipType.BASIC)
@@ -62,10 +65,10 @@ public class MembershipServiceTest {
     }
 
     @Test
-    void testReturnAllMemberships(){
+    void testFindAllMemberships(){
         //arrange
         Price price = new Price(new BigDecimal("400"), "PLN");
-        Category category = new Category("street");
+        Category category = new Category(UUID.randomUUID(), "street");
         Membership membership1 = Membership.builder()
                 .name("name")
                 .type(MembershipType.BASIC)
@@ -97,10 +100,58 @@ public class MembershipServiceTest {
     }
 
     @Test
+    void testFindExistingMembership() {
+        // arrange
+        UUID id = UUID.randomUUID();
+        Price price = new Price(new BigDecimal("400"), "PLN");
+        Category category = new Category(UUID.randomUUID(), "street");
+        Membership membership = Membership.builder()
+                .name("name")
+                .type(MembershipType.BASIC)
+                .price(price)
+                .duration(6)
+                .maxMembers(10)
+                .category(category)
+                .build();
+        membership.setId(id);
+
+        when(membershipRepository.findById(id))
+                .thenReturn(Optional.of(membership));
+
+        // act
+        Optional<Membership> result = membershipService.findById(id);
+
+        // assert
+        //check if value was returned with the same id
+        assertTrue(result.isPresent());
+        assertEquals(id, result.get().getId());
+        //check if findById was triggered once
+        verify(membershipRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void testFindNonExistingMembership() {
+        // arrange
+        UUID id = UUID.randomUUID();
+
+        when(membershipRepository.findById(id))
+                .thenReturn(Optional.empty());
+
+        // act
+        Optional<Membership> result = membershipService.findById(id);
+
+        // assert
+        //check if returned value is empty
+        assertTrue(result.isEmpty());
+        //check if findById was triggered once
+        verify(membershipRepository, times(1)).findById(id);
+    }
+
+    @Test
     void testDeleteMembership(){
         //arrange
         Price price = new Price(new BigDecimal("400"), "PLN");
-        Category category = new Category("street");
+        Category category = new Category(UUID.randomUUID(), "street");
         Membership membership = Membership.builder()
                 .name("name")
                 .type(MembershipType.BASIC)

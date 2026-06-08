@@ -10,8 +10,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -26,8 +29,8 @@ public class CategoryServiceTest {
     @Test
     void testSavedCategory(){
         //arrange
-        Category category = new Category("Membership1");
-        Category savedCategory = new Category("Membership1");
+        Category category = new Category(UUID.randomUUID(),"Membership1", 10);
+        Category savedCategory = new Category(UUID.randomUUID(),"Membership1", 10);
 
         when(categoryRepository.save(category)).thenReturn(savedCategory);
 
@@ -42,9 +45,10 @@ public class CategoryServiceTest {
     }
 
     @Test
-    void testReturnAllCategories(){
+    void testFindAllCategories(){
         //arrange
-        List<Category> categories= List.of(new Category("Membership1"), new Category("Membership1"));
+        List<Category> categories= List.of(new Category(UUID.randomUUID(),"Membership1", 10),
+                new Category(UUID.randomUUID(),"Membership2", 10));
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
@@ -59,9 +63,47 @@ public class CategoryServiceTest {
     }
 
     @Test
+    void testFindExistingCategory() {
+        // arrange
+        UUID id = UUID.randomUUID();
+        Category category = new Category(id, "Membership2", 10);
+
+        when(categoryRepository.findById(id))
+                .thenReturn(Optional.of(category));
+
+        // act
+        Optional<Category> result = categoryService.findById(id);
+
+        // assert
+        //check if value was returned with the same id
+        assertTrue(result.isPresent());
+        assertEquals(id, result.get().getId());
+        //check if findById was triggered once
+        verify(categoryRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void testFindNonExistingCategory() {
+        // arrange
+        UUID id = UUID.randomUUID();
+
+        when(categoryRepository.findById(id))
+                .thenReturn(Optional.empty());
+
+        // act
+        Optional<Category> result = categoryService.findById(id);
+
+        // assert
+        //check if returned value is empty
+        assertTrue(result.isEmpty());
+        //check if findById was triggered once
+        verify(categoryRepository, times(1)).findById(id);
+    }
+
+    @Test
     void testDeleteCategory(){
         //arrange
-        Category categories = new Category("Membership1");
+        Category categories = new Category(UUID.randomUUID(),"Membership1", 10);
 
         //act
         categoryService.delete(categories);

@@ -1,4 +1,4 @@
-package org.gymapp.gymservice.config;
+package org.gymapp.membershipservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

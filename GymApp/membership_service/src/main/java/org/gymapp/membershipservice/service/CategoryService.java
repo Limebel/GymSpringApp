@@ -18,7 +18,7 @@ public class CategoryService {
 
     public List<Category> findAll() {return categoryRepository.findAll(); }
 
-    public Optional<Category> findById(UUID id) {return categoryRepository.findById(id);} //TODO: test
+    public Optional<Category> findById(UUID id) {return categoryRepository.findById(id);}
 
     public void delete(Category category) { categoryRepository.delete(category); }
 }

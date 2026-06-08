@@ -12,15 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/gyms-management/gyms")
-class GymController {
+public class GymController {
     private final GymService gymService;
     private final GymMapper gymMapper;
-    private final CategoryEventPublisher eventPublisher;
+    private final GymEventPublisher eventPublisher;
 
     @PostMapping
     public ResponseEntity<GymReadDto> createGym(
